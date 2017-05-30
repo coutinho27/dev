@@ -1,0 +1,17 @@
+[0525/112904.707:ERROR:process_reader_win.cc(114)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso não lhe foi concedido.  (0xc0000022)
+[0525/112904.708:ERROR:exception_snapshot_win.cc(87)] thread ID 4424 not found in process
+[0525/112904.708:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::Initialize failed
+[0525/112904.793:ERROR:process_reader_win.cc(142)] SuspendThread: Acesso negado. (0x5)
+[0525/112904.793:ERROR:process_reader_win.cc(114)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso não lhe foi concedido.  (0xc0000022)
+[0525/112904.793:ERROR:exception_snapshot_win.cc(87)] thread ID 4492 not found in process
+[0525/112904.793:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::Initialize failed
+[0525/181835.851:ERROR:process_reader_win.cc(114)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso não lhe foi concedido.  (0xc0000022)
+[0525/181835.866:ERROR:exception_snapshot_win.cc(87)] thread ID 6584 not found in process
+[0525/181835.866:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::Initialize failed
+[0526/145758.999:ERROR:process_reader_win.cc(114)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso não lhe foi concedido.  (0xc0000022)
+[0526/145759.009:ERROR:exception_snapshot_win.cc(87)] thread ID 7044 not found in process
+[0526/145759.009:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::Initialize failed
+[0526/155804.970:ERROR:process_reader_win.cc(142)] SuspendThread: Acesso negado. (0x5)
+[0526/155804.972:ERROR:process_reader_win.cc(114)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso não lhe foi concedido.  (0xc0000022)
+[0526/155804.973:ERROR:exception_snapshot_win.cc(87)] thread ID 6384 not found in process
+[0526/155804.973:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::Initialize failed
