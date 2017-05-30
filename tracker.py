@@ -11,11 +11,12 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
+#Teste de GIT
 
 # site = 'http://tracker.strider.ag/#/page/login'
 site = 'http://qa.strider.io/horizonclient/#/page/login' 
 driver = webdriver.Chrome("C:/dev/chromedriver.exe")
-delay = 25
+delay = 20
 
 driver.set_window_position(0, 0)
 driver.set_window_size(1280, 728)
