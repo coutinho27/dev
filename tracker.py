@@ -19,7 +19,7 @@ driver = webdriver.Chrome("C:/dev/chromedriver.exe")
 delay = 20
 
 driver.set_window_position(0, 0)
-driver.set_window_size(1280, 728)
+driver.set_window_size(max, max)
 
 
 driver.get(site) #URL do site alvo
