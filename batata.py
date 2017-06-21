@@ -6,7 +6,7 @@ import contextlib
 import selenium.webdriver.support.ui as ui
 
 #
-# Outra linha normal como qualquer outra.
+# Lista de teste de Pull
 #
 driver = webdriver.Chrome("C:/dev/chromedriver.exe")
 wait = ui.WebDriverWait(driver,10)
