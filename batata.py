@@ -6,7 +6,7 @@ import contextlib
 import selenium.webdriver.support.ui as ui
 
 #
-# Make sure that your chromedriver is in your PATH, and use the following line...
+# Outra linha normal como qualquer outra.
 #
 driver = webdriver.Chrome("C:/dev/chromedriver.exe")
 wait = ui.WebDriverWait(driver,10)
