@@ -64,16 +64,79 @@ dropdown()
 driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[6]").click()
 WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='issueScrollable']/div/fieldset/div[1]/div"))) #Label Todas
 
-#Menu Customização 
+#Menu Customização
+#Produto
+dropdown()
 driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[7]").click() #Menu Customização
 driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[7]/ul/li[1]").click() #Produto
 WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='saveButtonContainer']/button"))) #Botão Salvar
 
+#Problema
+dropdown()
 driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[7]").click() #Menu Customização
-driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[7]/ul/li[2]]").click() #Problemas
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[7]/ul/li[2]").click() #Problemas
 WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='saveButtonContainer']/button"))) #Botão Salvar
 
+#Evolução
+dropdown()
 driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[7]").click() #Menu Customização
-driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[7]/ul/li[3]]").click() #Evolução
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[7]/ul/li[3]").click() #Evolução
 WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='saveButtonContainer']/button"))) #Botão Salvar
+
+#Menu Atividade
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[8]").click()
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div[1]/div[1]/div/div[2]/div/button"))) #Botão criar atividade
+
+#Menu Estoque
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[9]").click()
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div/section/div/div/div[2]/a"))) #Botão de Compra
+
+#Menu Registro de Aplicações
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[10]").click()
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='btn-pick-by-regions']"))) #Região pai
+
+#Menu Analise de Amostras
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[11]").click()
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div[1]/section/div/div/div/button[1]"))) #Botão Salvar
+
+#Menu Orcamento
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[12]").click()
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='region-tree-nodes']/li/div"))) #Região pai
+
+#Menu Exportar Mapa
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[13]").click()
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='region-tree-nodes']/li/div/div"))) #Região pai
+
+#Estatistica 
+#Monitoramento
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[14]").click() #Menu Customização
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[14]/ul/li[1]").click() #Produto
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div/div[1]/div[2]/div/div/section/div[3]/div/div/button"))) #Botão Salvar
+
+#Uso
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[14]").click() #Menu Customização
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[14]/ul/li[2]").click() #Problemas
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div/div[1]/div/div/div"))) #Botão Salvar
+
+#Produção 
+#Relatório detalhado
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[15]").click() #Menu Customização
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[15]/ul/li[1]").click() #Produto
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='daily-labor-report']/div[1]/div[1]/div/div"))) #Calendário
+
+#Lista de colaboradores
+dropdown()
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[15]").click() #Menu Customização
+driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[15]/ul/li[2]").click() #Problemas
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div/div[1]/div/div/div"))) #Botão Salvar
+
 
