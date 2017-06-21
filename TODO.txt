@@ -1,0 +1,39 @@
+Limpar cache da fazenda testada
+
+**Monitoramento**
+Fazer Login
+Clicar na fazenda Modelo Florestal
+Clicar no talhão "Eucapinus - T06"
+Clicar no monitoramento da data "08 ago 2016"
+Avaliar valores
+Formiga-cortadeira/Saúva/Quenquém
+	Quantidade de Formigueiro = 50 
+	Desfolha da planta = 1,80 
+Ferrugem
+	Plantas com sintomas = 0,30 
+Quem fez o monitoramento = Luan Coutinho
+Quantidade de metros caminhados 1040m
+
+**Aplicação**
+Realizar uma aplicação para o talhão "Eucapinus - T06"
+Validar os dados entrados na linha do tempo
+Validar saida no menu estoque
+Realizar compra deste produto no menu compra
+Validar compra no menu estoque
+
+**Atividade**
+Criar uma atividade de monitoramento no menu "Atividade" 
+Validar os dados entrados na lista de atividades
+
+
+**Produtividade**
+
+Validar dados com os que o cliente tem
+
+
+
+
+	//*[@id="area-data"]/div[3]/div[11]/div[2]/div/div[2]/div[5]/div[3]/div[1]/div/span[1]/span
+	//*[@id="area-data"]/div[3]/div[11]/div[2]/div/div[2]/div[5]/div[3]/div[2]/div/span[1]/span
+
+	//*[@id="area-data"]/div[3]/div[11]/div[2]/div/div[2]/div[6]/div[3]/div/div/span[1]/span
