@@ -15,6 +15,16 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+sprayTip = 'CONE'
+dataInit = '25-06-2017 06:00'
+dataEnd = '25-06-2017 09:00'
+windSpeed = '60'
+humidity = '50'
+Temperature = '30'
+reentryInterval = '1'
+totalVolume = '10'
+
+
 def dropdown():
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='header']/div[2]/ul[1]/li[2]/a")))
 	driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/a").click()
@@ -52,6 +62,8 @@ def area_select():
 	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[4]/div').click()
 
 def spray_registration():
+	global sprayTip, dataInit, dataEnd, windSpeed, humidity, Temperature, reentryInterval, totalVolume
+
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='region-tree-nodes']/li/ol/li[1]/div"))) #Espera a linha do tempo carregar
 	#Menu Registro de Aplicações
 	dropdown()
@@ -73,7 +85,7 @@ def spray_registration():
 	#Aba Produtos
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="sprayForm"]/form/div/div/div/div/div[2]/div[1]/div[1]/div/input'))) #Espera aparecer o tanque
 
-	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[2]/div[1]/div[1]/div/input').send_keys("10") #Adiciona volume total
+	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[2]/div[1]/div[1]/div/input').send_keys(totalVolume) #Adiciona volume total
 	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[2]/div[2]/div[2]/button').click() #Clica em Adicionar produto
 
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="sprayForm"]/form/div/div/div/div/div[2]/div[2]/div[1]/spray-registration-product/div/div[1]/div/div/span'))) 
@@ -95,17 +107,17 @@ def spray_registration():
 	#Calendário
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="app"]/div[4]/div[3]/div/button[1]'))) 
 	driver.find_element_by_xpath('//*[@id="app"]/div[4]/div[3]/div/div[1]/input').send_keys(Keys.CONTROL, 'a') #Adiciona data inicial
-	driver.find_element_by_xpath('//*[@id="app"]/div[4]/div[3]/div/div[1]/input').send_keys("25-06-2017 06:00") #Adiciona data inicial
+	driver.find_element_by_xpath('//*[@id="app"]/div[4]/div[3]/div/div[1]/input').send_keys(dataInit) #Adiciona data inicial
 	driver.find_element_by_xpath('//*[@id="app"]/div[4]/div[3]/div/div[2]/input').send_keys(Keys.CONTROL, 'a') #Adiciona data final
-	driver.find_element_by_xpath('//*[@id="app"]/div[4]/div[3]/div/div[2]/input').send_keys("25-06-2017 09:00") #Adiciona data final
+	driver.find_element_by_xpath('//*[@id="app"]/div[4]/div[3]/div/div[2]/input').send_keys(dataEnd) #Adiciona data final
 	driver.find_element_by_xpath('//*[@id="app"]/div[4]/div[3]/div/button[1]').click() #Clica em aplicar
 
 	#Informações facultativas
-	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[1]/div[1]/input').send_keys("CONE") #Adiciona Ponta
-	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[2]/div[1]/input').send_keys("60") #Adiciona Velocidade do vento
-	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[2]/div[2]/input').send_keys("50") #Adiciona Umidade Relativa
-	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[2]/div[3]/input').send_keys("30") #Adiciona Temperatura
-	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[4]/div[1]/div/input').send_keys("1") #Adiciona Periodo de Reentrada
+	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[1]/div[1]/input').send_keys(sprayTip) #Adiciona sprayTip
+	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[2]/div[1]/input').send_keys(windSpeed) #Adiciona Velocidade do vento
+	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[2]/div[2]/input').send_keys(humidity) #Adiciona Umidade Relativa
+	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[2]/div[3]/input').send_keys(Temperature) #Adiciona Temperatura
+	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[4]/div[1]/div/input').send_keys(reentryInterval) #Adiciona Periodo de Reentrada
 
 	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[1]/div[2]/span[2]/select').click() #Clica em Modo de Aplicação
 	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[3]/div[1]/div[2]/span[2]/select/option[2]').click() #Clica na opção 2
@@ -118,13 +130,33 @@ def spray_registration():
 	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[6]/button').click() #Clica Cadastrar Aplicação
 
 def spray_validation():
+	global sprayTip, dataInit, dataEnd, windSpeed, humidity, Temperature, reentryInterval, totalVolume
+
+	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located((By.XPATH, '//*[@id="regionsScrollable"]/region-tree/div/div[3]/mg-content'))) #Espera o Loading acabar
+	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located((By.XPATH, '//*[@id="content"]/div[1]/div[6]/mg-content'))) #Espera o Loading acabar
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="region-tree-nodes"]/li/ol/li[1]/div/div'))) #Espera os talhões carregarem
-	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/div/div').click()
+	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/div/div').click() #Clica no primeiro talhão
 
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div'))) #Espera o talhão selecionado carregar
-	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div').text) 
-	
+	#print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div').text) 
+	totalVolume += ' L'
+	if ((driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div/p[2]/em').text) == totalVolume): #Valida volume total
+		print('Valor de volume total correto')
+		
+	else:
+		print('Valor de volume total Errado')
 
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div/p[2]/em').text) #Imprime o Volume
+	print(totalVolume)
+
+	"""	
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div/div[1]/div/em').text) #Imprime os produtos usados
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div/p[2]/em').text) #Imprime o Volume
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div/p[3]/em[1]').text) #Imprime Data de inicio
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div/p[3]/em[2]').text) #Imprime Data de FInal
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div/p[4]/em[1]').text) #Imprime a Semana do ano
+	print(sprayTip)
+	"""
 
 #site = 'http://qa2.strider.io/user/#/signin' 
 site = 'http://painel.strider.ag/user/#/signin' 
@@ -138,11 +170,10 @@ password = 'lian1'
 
 login(user, password)	
 
-WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div/div[4]/div/div[6]/section/div[1]/div[2]/span"))) #Espera uma fazenda carregar
-driver.find_element_by_xpath("//*[@id='content']/div/div[4]/div/div[6]/section/div[1]/div[2]/span").click() #Selecionar a fazenda 6(Fazenda de Teste Automatizado)
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div/div[4]/div/div[2]/section/div[1]/div[2]/span"))) #Espera uma fazenda carregar
+driver.find_element_by_xpath("//*[@id='content']/div/div[4]/div/div[2]/section/div[1]/div[2]/span").click() #Selecionar a fazenda 2(Fazenda de Teste Automatizado)
 
 #spray_registration()
-#print_farm_area()
 spray_validation()
 
 """
