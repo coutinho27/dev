@@ -135,6 +135,7 @@ def spray_validation():
 	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located((By.XPATH, '//*[@id="regionsScrollable"]/region-tree/div/div[3]/mg-content'))) #Espera o Loading acabar
 	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located((By.XPATH, '//*[@id="content"]/div[1]/div[6]/mg-content'))) #Espera o Loading acabar
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="region-tree-nodes"]/li/ol/li[1]/div/div'))) #Espera os talhões carregarem
+
 	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/div/div').click() #Clica no primeiro talhão
 
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div'))) #Espera o talhão selecionado carregar
