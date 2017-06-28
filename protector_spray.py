@@ -3,6 +3,7 @@ import time
 import contextlib
 import selenium.webdriver.support.ui as ui
 import requests
+import os
 
 from io import StringIO
 from selenium import webdriver
@@ -25,15 +26,33 @@ def login(usuario, senha):
 	driver.find_element_by_xpath("//*[@id='content']/div/div[3]/div/div/form/fieldset/div[8]/div/input").send_keys(senha)
 	driver.find_element_by_xpath("//*[@id='content']/div/div[3]/div/div/form/fieldset/div[11]/a").click()
 
+def print_farm_name():
+	for value in range(1,100000):
+		try:
+			print(driver.find_element_by_xpath('//*[@id="content"]/div/div[4]/div/div[{}]/section/div[1]/div[2]/span'.format(value)).text) 
+		except Exception as e:
+			break
+
+def print_farm_area():
+	WebDriverWait(driver, delay).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="region-tree-nodes"]/li/ol/li[1]/div'))) #Região pai
+	for value in range(1,100000):
+		try:
+			print(driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[{}]/div'.format(value)).text) 
+		except Exception as e:
+			break
+			print(value)
+
+
 def area_select():
 	#Espera a arvore carregar
-	WebDriverWait(driver, delay).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="region-tree-nodes"]/li/ol/li[1]/ol/li[1]/div'))) #Região pai
-	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/ol/li[1]/div').click()
-	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/ol/li[4]/div').click()
-	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/ol/li[6]/div').click()
-	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/ol/li[7]/div').click()
+	WebDriverWait(driver, delay).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="region-tree-nodes"]/li/ol/li[1]/div'))) #Região pai
+	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/div').click()
+	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[2]/div').click()
+	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[3]/div').click()
+	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[4]/div').click()
 
 def spray_registration():
+	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='region-tree-nodes']/li/ol/li[1]/div"))) #Espera a linha do tempo carregar
 	#Menu Registro de Aplicações
 	dropdown()
 	driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[10]").click()
@@ -98,37 +117,35 @@ def spray_registration():
 
 	driver.find_element_by_xpath('//*[@id="sprayForm"]/form/div/div/div/div/div[3]/div[6]/button').click() #Clica Cadastrar Aplicação
 
+def spray_validation():
+	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="region-tree-nodes"]/li/ol/li[1]/div/div'))) #Espera os talhões carregarem
+	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/div/div').click()
+
+	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div'))) #Espera o talhão selecionado carregar
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div').text) 
+	
+
+
 #site = 'http://qa2.strider.io/user/#/signin' 
 site = 'http://painel.strider.ag/user/#/signin' 
 driver = webdriver.Chrome("C:/dev/chromedriver.exe")
-
-user = 'luan'
-password = 'lian1'
-
 delay = 50
 driver.get(site) #URL do site alvo
 
+#Acesso
+user = 'luan'
+password = 'lian1'
+
 login(user, password)	
 
-WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div/div[4]/div/div[3]/section/div[1]/div[2]/span")))
+WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div/div[4]/div/div[6]/section/div[1]/div[2]/span"))) #Espera uma fazenda carregar
+driver.find_element_by_xpath("//*[@id='content']/div/div[4]/div/div[6]/section/div[1]/div[2]/span").click() #Selecionar a fazenda 6(Fazenda de Teste Automatizado)
+
+#spray_registration()
+#print_farm_area()
+spray_validation()
 
 """
-for value in range(1,100000):
-	try:
-		print(driver.find_element_by_xpath('//*[@id="content"]/div/div[4]/div/div[{}]/section/div[1]/div[2]/span'.format(value)).text) 
-	except Exception as e:
-		break
-
-"""
-
-#Selecionar a fazenda 4 (Belo Horizonte)
-driver.find_element_by_xpath("//*[@id='content']/div/div[4]/div/div[4]/section/div[1]/div[2]/span").click()
-#Espera a linha do tempo carregar
-WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='region-tree-nodes']/li/ol/li[1]/div")))
-
-spray_registration()
-
-"""
-if __name__ == '__main__':
+if __name__ == __main__:
 	main()
 """
