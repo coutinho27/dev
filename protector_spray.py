@@ -158,6 +158,13 @@ def spray_validation():
 	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[1]/div/div[2]/div/p[4]/em[1]').text) #Imprime a Semana do ano
 	print(sprayTip)
 	"""
+def spray_task_registration():
+	dropdown()
+	driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[8]").click() #Clica no menu atividades
+	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="content"]/div[1]/div[1]/div/div[2]/div/button'))) #Botão criar atividade
+	driver.find_element_by_xpath('//*[@id="content"]/div[1]/div[1]/div/div[2]/div/button').click() #Clica no Botão nova atividade
+	driver.find_element_by_xpath('//*[@id="content"]/div[1]/div[1]/div/div[2]/div/ul/li[1]/a').click() #Clica na opção de Monitoramento
+
 
 #site = 'http://qa2.strider.io/user/#/signin' 
 site = 'http://painel.strider.ag/user/#/signin' 
@@ -175,7 +182,13 @@ WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "
 driver.find_element_by_xpath("//*[@id='content']/div/div[4]/div/div[2]/section/div[1]/div[2]/span").click() #Selecionar a fazenda 2(Fazenda de Teste Automatizado)
 
 #spray_registration()
-spray_validation()
+#spray_validation()
+
+spray_task_registration()
+
+
+
+
 
 """
 if __name__ == __main__:
