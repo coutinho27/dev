@@ -14,6 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 
 sprayTip = 'CONE'
 dataInit = '25-06-2017 06:00'
@@ -162,15 +163,33 @@ def spray_task_registration():
 	dropdown()
 	driver.find_element_by_xpath("//*[@id='header']/div[2]/ul[1]/li[2]/ul/li[8]").click() #Clica no menu atividades
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="content"]/div[1]/div[1]/div/div[2]/div/button'))) #Botão criar atividade
+	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located((By.XPATH, '//*[@id="content"]/div[1]/div[3]/mg-content'))) #Botão criar atividade
 	driver.find_element_by_xpath('//*[@id="content"]/div[1]/div[1]/div/div[2]/div/button').click() #Clica no Botão nova atividade
-	driver.find_element_by_xpath('//*[@id="content"]/div[1]/div[1]/div/div[2]/div/ul/li[1]/a').click() #Clica na opção de Monitoramento
+	driver.find_element_by_xpath('//*[@id="content"]/div[1]/div[1]/div/div[2]/div/ul/li[3]/a').click() #Clica na opção de Monitoramento
+	
+	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located(find_element_by_css_selector('svg'))) #Botão criar atividade
+	svgElement = driver.find_element_by_css_selector('svg')  
+	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located((svgElement.find_element_by_css_selector('g')))) #Botão criar atividade
+	gElements = svgElement.find_element_by_css_selector('g')  
+	gElements.get(0).click()
+# WebDriverWait(driver, delay).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="AreaReportMap-293874239874"]/div[2]/div[2]/div[2]/svg/g[5]'))) #Espera o talhão carregar
+# WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="AreaReportMap-293874239874"]/div[2]/div[2]/div[2]/svg/g[5]'))) #Espera o talhão carregar
+# driver.find_element_by_xpath('//*[@id="AreaReportMap-293874239874"]/div[2]/div[2]/div[2]/svg/g[5]').click() #Clica no talhão na tela
+
+    
 
 
 #site = 'http://qa2.strider.io/user/#/signin' 
 site = 'http://painel.strider.ag/user/#/signin' 
-driver = webdriver.Chrome("C:/dev/chromedriver.exe")
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--start-maximized') #Maximiza a tela
+driver = webdriver.Chrome("C:/dev/chromedriver.exe", chrome_options=chrome_options)
+
 delay = 50
 driver.get(site) #URL do site alvo
+
+
 
 #Acesso
 user = 'luan'
@@ -185,9 +204,6 @@ driver.find_element_by_xpath("//*[@id='content']/div/div[4]/div/div[2]/section/d
 #spray_validation()
 
 spray_task_registration()
-
-
-
 
 
 """
