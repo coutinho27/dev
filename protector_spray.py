@@ -176,7 +176,44 @@ def spray_task_registration():
 # WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="AreaReportMap-293874239874"]/div[2]/div[2]/div[2]/svg/g[5]'))) #Espera o talhão carregar
 # driver.find_element_by_xpath('//*[@id="AreaReportMap-293874239874"]/div[2]/div[2]/div[2]/svg/g[5]').click() #Clica no talhão na tela
 
-    
+def rollup_validation():
+	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located((By.XPATH, '//*[@id="regionsScrollable"]/region-tree/div/div[3]/mg-content'))) #Espera o Loading acabar
+	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located((By.XPATH, '//*[@id="content"]/div[1]/div[6]/mg-content'))) #Espera o Loading acabar
+	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="region-tree-nodes"]/li/ol/li[1]/div/div'))) #Espera os talhões carregarem
+
+	os.system('cls')
+	driver.find_element_by_xpath('//*[@id="region-tree-nodes"]/li/ol/li[1]/div/div').click() #Clica no primeiro talhão
+	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]'))) #Espera o talhão selecionado carregar
+
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]/div[1]/strong').text) #Imprime o Nome da Issue
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]/div[3]/div[1]/div/span[1]/span').text) #Imprime do primeiro indicador
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]/div[3]/div[2]/div/span[1]/span').text) #Imprime do segundo indicador
+	print('-------------------------------------------------------------') #Imprime o separador	
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[6]/div[1]/strong').text) #Imprime o Nome da Issue
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[6]/div[3]/div[1]/div/span[1]/span').text) #Imprime do segundo indicador
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[6]/div[3]/div[2]/div/span[1]/span').text) #Imprime do segundo indicador	
+	print('-------------------------------------------------------------') #Imprime o separador	
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[7]/div[1]/strong').text) #Imprime o Nome da Issue
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[7]/div[3]/div[1]/div/span[1]/span').text) #Imprime do segundo indicador
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[7]/div[3]/div[2]/div/span[1]/span').text) #Imprime do segundo indicador
+	print('-------------------------------------------------------------') #Imprime o separador	
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[1]/strong').text) #Imprime o Nome da Issue
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[3]/div[1]/div/span[1]/span').text) #Imprime do segundo indicador
+	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[3]/div[2]/div/span[1]/span').text) #Imprime do segundo indicador
+
+	value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[3]/div[2]/div/span[1]/span').text, '20,00')
+
+
+def value_validation(valueTeste, real):
+	if(valueTeste == real):
+		print('Valor correto')
+	else:
+		print('Valor Diferente')
+	print(valueTeste)
+	print(real)
+
+
+
 
 
 #site = 'http://qa2.strider.io/user/#/signin' 
@@ -202,11 +239,15 @@ driver.find_element_by_xpath("//*[@id='content']/div/div[4]/div/div[2]/section/d
 
 #spray_registration()
 #spray_validation()
+#spray_task_registration()
+rollup_validation()
 
-spray_task_registration()
+
 
 
 """
 if __name__ == __main__:
 	main()
 """
+
+
