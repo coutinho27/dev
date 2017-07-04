@@ -1,20 +1,23 @@
-import lxml.etree
-import time
-import contextlib
-import selenium.webdriver.support.ui as ui
-import requests
 import os
+import json 
+import time
+import requests
+import contextlib
+import lxml.etree
+import configparser
+import selenium.webdriver.support.ui as ui
 
 from io import StringIO
-from selenium import webdriver
 from bs4 import BeautifulSoup
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 
 sprayTip = 'CONE'
 dataInit = '25-06-2017 06:00'
@@ -24,7 +27,22 @@ humidity = '50'
 Temperature = '30'
 reentryInterval = '1'
 totalVolume = '10'
+username = ''
+password = ''
+config = None
 
+if !os.path.isfile('creds.ini'):
+	config['CREDS'] = {'username': '',
+						'password': ''}
+
+	with open('creds.ini', 'w') as configfile:
+		config['CREDS']['username'] = input('Enter your login: ')
+		config['CREDS']['password'] = input('Enter your password: ')
+		config.write(configfile)
+
+config = configparser.ConfigParser('creds.ini')
+username = config['CRED']['username']
+password = config['CRED']['password']
 
 def dropdown():
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='header']/div[2]/ul[1]/li[2]/a")))
@@ -167,8 +185,8 @@ def spray_task_registration():
 	driver.find_element_by_xpath('//*[@id="content"]/div[1]/div[1]/div/div[2]/div/button').click() #Clica no Botão nova atividade
 	driver.find_element_by_xpath('//*[@id="content"]/div[1]/div[1]/div/div[2]/div/ul/li[3]/a').click() #Clica na opção de Monitoramento
 	
-	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located(find_element_by_css_selector('svg'))) #Botão criar atividade
-	svgElement = driver.find_element_by_css_selector('svg')  
+	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located(find_elements_by_css_selector('svg'))) #Botão criar atividade
+	svgElement = driver.find_elements_by_css_selector('svg')  
 	WebDriverWait(driver, delay).until(EC.invisibility_of_element_located((svgElement.find_element_by_css_selector('g')))) #Botão criar atividade
 	gElements = svgElement.find_element_by_css_selector('g')  
 	gElements.get(0).click()
@@ -186,35 +204,47 @@ def rollup_validation():
 	WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]'))) #Espera o talhão selecionado carregar
 
 	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]/div[1]/strong').text) #Imprime o Nome da Issue
-	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]/div[3]/div[1]/div/span[1]/span').text) #Imprime do primeiro indicador
-	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]/div[3]/div[2]/div/span[1]/span').text) #Imprime do segundo indicador
+	timeline_value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]/div[3]/div[1]/div/span[1]/span').text, '5,00') #Imprime do primeiro indicador
+	timeline_value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[5]/div[3]/div[2]/div/span[1]/span').text, '5,00') #Imprime do segundo indicador
 	print('-------------------------------------------------------------') #Imprime o separador	
 	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[6]/div[1]/strong').text) #Imprime o Nome da Issue
-	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[6]/div[3]/div[1]/div/span[1]/span').text) #Imprime do segundo indicador
-	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[6]/div[3]/div[2]/div/span[1]/span').text) #Imprime do segundo indicador	
+	timeline_value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[6]/div[3]/div[1]/div/span[1]/span').text, '10,00') #Imprime do segundo indicador
+	timeline_value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[6]/div[3]/div[2]/div/span[1]/span').text, '10,00') #Imprime do segundo indicador	
 	print('-------------------------------------------------------------') #Imprime o separador	
 	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[7]/div[1]/strong').text) #Imprime o Nome da Issue
-	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[7]/div[3]/div[1]/div/span[1]/span').text) #Imprime do segundo indicador
-	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[7]/div[3]/div[2]/div/span[1]/span').text) #Imprime do segundo indicador
+	timeline_value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[7]/div[3]/div[1]/div/span[1]/span').text, '30,00') #Imprime do segundo indicador
+	timeline_value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[7]/div[3]/div[2]/div/span[1]/span').text, '30,00') #Imprime do segundo indicador
 	print('-------------------------------------------------------------') #Imprime o separador	
 	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[1]/strong').text) #Imprime o Nome da Issue
-	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[3]/div[1]/div/span[1]/span').text) #Imprime do segundo indicador
-	print(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[3]/div[2]/div/span[1]/span').text) #Imprime do segundo indicador
-
-	value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[3]/div[2]/div/span[1]/span').text, '20,00')
+	timeline_value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[3]/div[1]/div/span[1]/span').text, '25,00') #Imprime do segundo indicador
+	timeline_value_validation(driver.find_element_by_xpath('//*[@id="area-data"]/div[3]/div[1]/div[2]/div/div[2]/div[8]/div[3]/div[2]/div/span[1]/span').text, '25,00') #Imprime do segundo indicador
 
 
-def value_validation(valueTeste, real):
+def timeline_value_validation(valueTeste, real):
 	if(valueTeste == real):
 		print('Valor correto')
 	else:
 		print('Valor Diferente')
-	print(valueTeste)
-	print(real)
+	#print(valueTeste)
+	#print(real)
 
 
+def clear_cache(farm):
+	tokenJson = requests.post('http://v2.strider.io/striderserv/a/v1/auth', data = {'username':username, 'password':password})
+	#print “{0} {1} is {2} years old.” format(fname, lname, age)
+
+	print('Gerar Token: {}'.format(tokenJson.status_code))
+	#print(tokenJson.status_code + ' - Gerar Token')
+	response = json.loads(tokenJson.text)
+	clearCacheUrl = 'http://painel.strider.ag/striderserv/a/api/farm/{}/clearcache?token='.format(farm) + response['token']
+	print(clearCacheUrl)
+	limpaCache = requests.get(clearCacheUrl)
+	print('Limpar cache: {}'.format(limpaCache.status_code))
+	#print(limpaCache.status_code.text + ' - Limpar cache' )
 
 
+def get_auth_token(login, password):
+	return requests.post('http://v2.strider.io/striderserv/a/api/auth/authenticate?username={}&password={}'.format(login, password)).text
 
 #site = 'http://qa2.strider.io/user/#/signin' 
 site = 'http://painel.strider.ag/user/#/signin' 
@@ -222,17 +252,17 @@ site = 'http://painel.strider.ag/user/#/signin'
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--start-maximized') #Maximiza a tela
 driver = webdriver.Chrome("C:/dev/chromedriver.exe", chrome_options=chrome_options)
-
 delay = 50
 driver.get(site) #URL do site alvo
 
-
-
 #Acesso
-user = 'luan'
-password = 'lian1'
+#user = 'luan'
+#password = 'lian1'
+farmTest = 1780
 
-login(user, password)	
+clear_cache(farmTest)
+
+login(username, password)	
 
 WebDriverWait(driver, delay).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='content']/div/div[4]/div/div[2]/section/div[1]/div[2]/span"))) #Espera uma fazenda carregar
 driver.find_element_by_xpath("//*[@id='content']/div/div[4]/div/div[2]/section/div[1]/div[2]/span").click() #Selecionar a fazenda 2(Fazenda de Teste Automatizado)
@@ -240,14 +270,10 @@ driver.find_element_by_xpath("//*[@id='content']/div/div[4]/div/div[2]/section/d
 #spray_registration()
 #spray_validation()
 #spray_task_registration()
-rollup_validation()
-
-
+#rollup_validation()
 
 
 """
 if __name__ == __main__:
 	main()
 """
-
-
